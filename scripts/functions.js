@@ -56,3 +56,9 @@ function organizeByTags(toDoObjects) {
 
     return tagObjects;
 };
+
+function fromObjectsToArray(toDoObjects) {
+    return toDoObjects.map(function(toDo) {
+        return toDo.description;
+    });
+}

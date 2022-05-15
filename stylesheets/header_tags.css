@@ -11,10 +11,19 @@ h3 {
     font-size: 1.3em;
 }
 
+h4 {
+    font-size: 1.15em;
+}
+
 h5 {
     font-size: 1.05em;
 }
 
 main h3 {
     margin-top: 10px;
+}
+
+main h4 {
+    margin-top: 16px;
+    margin-left: 8px;
 }

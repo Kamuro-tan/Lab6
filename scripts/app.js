@@ -2,11 +2,10 @@
 var main = function(toDoObjects) {
     'use strict';
 
-    var toDos = toDoObjects.map(function(toDo) {
-        return toDo.description;
-    });
+    var toDos = fromObjectsToArray(toDoObjects);
 
-    var new_toDo = "";
+    var new_description = "";
+    var new_tags = "";
 
 
     $('.tabs a span').toArray().forEach(function(element) {
@@ -48,11 +47,19 @@ var main = function(toDoObjects) {
 
             } else if ($element.parent().is(':nth-child(4)')) {
                 $content = $('<form>');
+                $content.append($("<h4>").text("Описание"));
                 $content.append($('<input>').attr({ 
                     type: 'text', 
-                    placeholder: 'Введите новую задачу..', 
-                    value: new_toDo, 
-                    id: 'new_toDo' 
+                    placeholder: 'Введите описание задачи..', 
+                    value: new_description, 
+                    id: 'new_description' 
+                }));
+                $content.append($("<h4>").text("Категории"));
+                $content.append($('<input>').attr({ 
+                    type: 'text', 
+                    placeholder: 'Введите категории задачи..', 
+                    value: new_tags, 
+                    id: 'new_tags' 
                 }));
                 $content.append($('<button>').addClass('add_toDo'));
 
@@ -63,16 +70,31 @@ var main = function(toDoObjects) {
         });
     });
 
-// обработчик изменений строки input
-    $('main .content').on('change', '#new_toDo', function() {
-        new_toDo = $('#new_toDo').val();
+// обработчики изменений строк в input
+    $('main .content').on('change', '#new_description', function() {
+        new_description = $('#new_description').val();
+        return false;
+    });
 
+    $('main .content').on('change', '#new_tags', function() {
+        new_tags = $('#new_tags').val();
         return false;
     });
 
 // обработчик нажатия кнопки добавления
     $('main .content').on('click', '.add_toDo', function() {
-        if (new_toDo != "") toDos.push(new_toDo);
+        if (new_description != "") {
+            var tags = new_tags.split(",");
+            if (tags.length != 0) {
+                toDoObjects.push({ "description": new_description, "tags": tags });
+                toDos = fromObjectsToArray(toDoObjects);
+                
+                $('#new_description').val("");
+                new_description = "";
+                $('#new_tags').val("");
+                new_tags = "";
+            }
+        }
 
         return false;
     });
