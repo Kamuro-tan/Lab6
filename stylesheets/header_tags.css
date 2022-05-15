@@ -14,3 +14,7 @@ h3 {
 h5 {
     font-size: 1.05em;
 }
+
+main h3 {
+    margin-top: 10px;
+}
